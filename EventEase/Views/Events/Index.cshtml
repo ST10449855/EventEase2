@@ -1,0 +1,22 @@
+﻿@model IEnumerable<EventEase.Models.Event>
+<h1>All Events</h1>
+<p><a asp-action="Create" class="btn btn-primary">Create New Event</a></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Event Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.StartDate.ToShortDateString()</td>
+                <td>@item.EndDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

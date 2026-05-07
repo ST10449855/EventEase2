@@ -1,0 +1,46 @@
+﻿@model IEnumerable<EventEase.Models.Booking>
+
+@{
+    ViewData["Title"] = "Bookings Dashboard";
+}
+
+<div class="container mt-4">
+    <h1>Booking Specialist - Consolidated View</h1>
+
+    <!-- Search Bar (Rubric Requirement) -->
+    <form asp-action="Index" method="get" class="mb-3">
+        <div class="input-group w-50">
+            <input type="text" name="searchString" class="form-control" placeholder="Search ID or Event..." />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    <table class="table table-hover shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Venue Name</th> <!-- Consolidated data -->
+                <th>Event Name</th> <!-- Consolidated data -->
+                <th>Dates</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="4" class="text-center text-muted">No bookings found. Create one to see the consolidated view.</td></tr>
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.BookingId</td>
+                    <td>@item.Venue?.Name</td>
+                    <td>@item.Event?.Name</td>
+                    <td>
+                        @item.Event?.StartDate.ToShortDateString() to @item.Event?.EndDate.ToShortDateString()
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Create" class="btn btn-success mt-2">Create New Booking</a>
+</div>

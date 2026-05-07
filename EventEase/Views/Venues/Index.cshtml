@@ -1,0 +1,23 @@
+﻿@model IEnumerable<EventEase.Models.Venue>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+<table class="table align-middle">
+    <thead><tr><th>Image</th><th>Name</th><th>Location</th><th>Action</th></tr></thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="@item.ImageUrl" style="width:100px; border-radius:8px;" onerror="this.src='https://placehold.co/100x70?text=No+Connection'" /></td>
+                <td>@item.Name</td>
+                <td>@item.Location</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@item.VenueId" method="post">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
